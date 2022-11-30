@@ -158,7 +158,9 @@ def orders_with_code():
 
 def revenue_in_last_n_days(n_days=30):
     print('revenue_in_last_n_days')
-    db.session\
-    .query(Product) \
-    .join(order_product).join(Order).filter(Order.order_date > (datetime.now () - timedelta(days=n_days))).all()
-    
+    print(db.session 
+        .query(db.func.sum(Product.price)) 
+        .join(order_product).join(Order) 
+        .filter(Order.order_date > (datetime.now() - timedelta(days=n_days)))
+        .scalar()
+    )
