@@ -164,3 +164,11 @@ def revenue_in_last_n_days(n_days=30):
         .filter(Order.order_date > (datetime.now() - timedelta(days=n_days)))
         .scalar()
     )
+
+def average_shipping_time():
+    print("average_shipping_time")
+    db.session.query(
+        db.func.strftime('%s',Order.shipped_date )- db.func.strftime('%s',Order.order_date)
+    )\
+    .filter(Order.shipped_date.isnot(None))
+    
